@@ -31,7 +31,7 @@ public class Topico {
     private String mensagem;
     private Date dataCriacao;
     private String nomeAutor;
-    private String status;
+    private Boolean status;
     @Embedded
     private Resposta resposta;
     @Enumerated
@@ -42,10 +42,25 @@ public class Topico {
         this.mensagem = dado.mensagem();
         dataCriacao = new Date();
         this.nomeAutor = dado.nomeAutor();
-        this.status = "não respondida";
+        this.status = false;
         this.resposta = new Resposta(dado.resposta());
         this.tema = dado.tema();
 
     }
 
+    public void atualizarInformacoes(DadosAtualizarTopico dados) {
+        if (dados.status() != null){
+            this.status = dados.status();
+        }
+        if (dados.titulo() != null) {
+            this.titulo = dados.titulo();
+        }
+        if (dados.mensagem() != null) {
+            this.mensagem = dados.mensagem();
+        }
+    }
+
+    public void respoder() {
+        status=true;
+    }
 }
